@@ -22,7 +22,7 @@ junto a los bloques que a la semana se requieren cubrir.
 INF.
 * La asignación de sala debe ser coherentes en todos los niveles.
 
-#INSTALACIÓN LIBRERÍA XLNT
+# INSTALACIÓN LIBRERÍA XLNT
 
 **PASO 1**
 
