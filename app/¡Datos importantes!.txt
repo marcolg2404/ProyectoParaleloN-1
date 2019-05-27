@@ -1,0 +1,2 @@
+-Para compilar:
+g++ main.cpp -o tarea -std=c++14 -Ixlnt/include -lxlnt
