@@ -1,5 +1,9 @@
 -Para compilar:
-g++ main.cpp -o tarea -std=c++14 -lxlsxwriter -Ixlnt/include -lxlnt 
+g++ main.cpp -o tarea -std=c++14 -lxlsxwriter -Ixlnt/include -lxlnt
 
 -Para ejecutar:
 ./tarea -s ./Archivos/Salas.xlsx -c ./Archivos/Cursos.xlsx -d ./Archivos/Docentes.xlsx
+
+Nota:
+- Para compilar una clase:
+Compilar de la forma: g++ -c class_cursos.cpp -o tarea -std=c++14 -lxlsxwriter -Ixlnt/include -lxlnt
