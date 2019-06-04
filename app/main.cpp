@@ -1,4 +1,5 @@
 #include <iostream>
+#include <wchar.h>
 #include <string>
 #include <vector>
 
@@ -10,6 +11,27 @@
 
 using namespace std;
 using namespace xlnt;
+
+void Crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo){
+  lxw_format *formato = workbook_add_format(archivo);
+  format_set_bold(formato);
+  format_set_align(formato, LXW_ALIGN_CENTER);
+  worksheet_write_string(hoja, 0, 0, "Periodo", formato); //Hoja, fila,columna , dato, formato)
+  worksheet_write_string(hoja, 0, 1, "Lunes", formato);
+  worksheet_write_string(hoja, 0, 2, "Martes", formato);
+  worksheet_write_string(hoja, 0, 3, "Miércoles", formato);
+  worksheet_write_string(hoja, 0, 4, "Jueves", formato);
+  worksheet_write_string(hoja, 0, 5, "Viernes", formato);
+  worksheet_write_string(hoja, 0, 6, "Sábado", formato);
+  worksheet_write_number(hoja, 1, 0, 1, formato);
+  worksheet_write_number(hoja, 2, 0, 2, formato);
+  worksheet_write_number(hoja, 3, 0, 3, formato);
+  worksheet_write_number(hoja, 4, 0, 4, formato);
+  worksheet_write_number(hoja, 5, 0, 5, formato);
+  worksheet_write_number(hoja, 6, 0, 6, formato);
+  worksheet_write_number(hoja, 7, 0, 7, formato);
+  worksheet_write_number(hoja, 8, 0, 8, formato);
+}
 
 int main(int argc, char **argv)/*Se pasan los argumentos. El primer argumento de la función argc nos indica el número total de parámetros.
                                         Mediante el segundo argumento argv, podemos acceder a los valores de los parámetros pasados al programa, siempre el primer parámetro,
@@ -69,13 +91,13 @@ int main(int argc, char **argv)/*Se pasan los argumentos. El primer argumento de
                     sala=(vectorCursos_filas[i]+"-"+vectorCursos_filas[i+1]);
                     /*se pasa el string sala a char*/
                     int n= sala.length()+1;
-                    char Sala_char[n];
+                    char Sala_char[n]; //Hacer funcion string a char
                     for(int k=0; k<sala.length(); k++){
                       Sala_char[k] = sala[k];
                     }
-
                     lxw_worksheet *worksheet = workbook_add_worksheet(workbook,Sala_char); //Se crea una nueva hoja con el titulo de la sala
-                    cout<<sala<<endl;
+                    Crear_formato(worksheet, workbook);
+
                 }
                 workbook_close(workbook); //Se guarda el archivo
                 cout << "Proceso completado" << endl;
