@@ -14,7 +14,7 @@ using namespace xlnt;
 /* CLASE 1: PROFESOR*/
 class Profesor{
 public://metodos de la clase
-  Profesor(string,string, vector<string> );//constructor
+  Profesor(int,string, vector<string> );//constructor
   void mostrar();
   void set_martes(vector<string> );
   void set_miercoles(vector<string> );
@@ -23,7 +23,7 @@ public://metodos de la clase
   void set_sabado(vector<string> );
 
 private://atributos de la clase
-  string id_profe;
+  int id_profe;
   string nombre;
   vector<string> lunes;// disponible o no disponible 0-6 //0-7
   vector<string> martes;
@@ -37,7 +37,7 @@ private://atributos de la clase
 class Cursos
 {
 public: //metodos
-Cursos(string, string,string,string,string,string);
+Cursos(string, string, int, string, int);
 //void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo);
 bool cursos_inf(string id);
 Cursos();
@@ -46,10 +46,9 @@ virtual ~Cursos();
 private: //atributos
   string codigo_cursos;
   string nombre_curso;
-  string id_docente;
+  int id_docente;
   string nombre_p;
-  string apellido_p;
-  string bloque;
+  int bloque;
 };
 
 

@@ -12,7 +12,7 @@ using namespace xlnt;
 /*Declaracion de los métodos*/
 
 //CLASE 1: PROFESOR
-Profesor::Profesor(string _id, string _nombre,vector<string> _bloques)
+Profesor::Profesor(int _id, string _nombre,vector<string> _bloques)
 {
   id_profe = _id;
   nombre = _nombre;
@@ -70,14 +70,14 @@ void Profesor::set_sabado(vector<string> _sa)
 }
 
 //CLASE 2: CURSOS
-Cursos::Cursos(string _codigo, string _ncurso, string _ido, string np, string ap, string _bloque){
+Cursos::Cursos(string _codigo, string _ncurso, int _ido, string np, int _bloque){
   codigo_cursos = _codigo;
   nombre_curso = _ncurso;
   id_docente = _ido;
   nombre_p = np;
-  apellido_p = ap;
   bloque = _bloque;
 }
+
 bool Cursos::cursos_inf(string id){
       bool Es_inf = false;
       size_t encontrar_INF = id.find("INF");
@@ -86,6 +86,11 @@ bool Cursos::cursos_inf(string id){
         Es_inf = true;
       }
   return Es_inf;
+}
+
+Cursos::~Cursos()
+{
+  //destructor
 }
 
 

@@ -93,14 +93,14 @@ Cursos.xlsx no los leerá*/
 
 // 2. FUNCION PARA HORARIO
 vector<Profesor> asignacion_profesores(){
-  int aux=0;
+  int id_p,aux=0;
   vector<Profesor> v;
   vector<string> VectorAux;//vevtor para la clase profesor
   vector<string> b;
-  string id_p,nombre_p;
+  string nombre_p;
   workbook wb;
   vector<string> dias = {"Lunes","Martes","Miércoles","Jueves","Viernes"};// aca la idea esque cuando abra el archivo lleanr este vector
-  wb.load("./Docentes.xlsx");
+  wb.load("./Archivos/Docentes.xlsx");
   for(int h=0;h< dias.size();h++){
     auto ws = wb.sheet_by_title(dias[h]);
     for(auto row : ws.rows(false))
@@ -113,10 +113,10 @@ vector<Profesor> asignacion_profesores(){
         }
       }
     }
-    for(int i=0; i<=VectorAux.size(); i=i+10)//se aumentan 10 celdas ya que
+    for(int i=0; i<VectorAux.size(); i=i+10)//se aumentan 10 celdas ya que
     {
       if(h==0){//Lunes
-      id_p =VectorAux[i];
+      id_p =stoi(VectorAux[i]);
       nombre_p =VectorAux[i+1] +" "+ VectorAux[i+2];// dejamos el nombre y apellido juntos
       b = {VectorAux[i+3],VectorAux[i+4],VectorAux[i+5],VectorAux[i+6],VectorAux[i+7],VectorAux[i+8],VectorAux[i+9]};
       Profesor aux(id_p,nombre_p,b);// le damos los parametros a un objeto auxiliar
