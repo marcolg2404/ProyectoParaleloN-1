@@ -70,7 +70,10 @@ void Profesor::set_sabado(vector<string> _sa)
 }
 
 //CLASE 2: CURSOS
-Cursos::Cursos(string _codigo, string _ncurso, int _ido, string np, int _bloque){
+Cursos::Cursos(){
+
+}
+void Cursos::set_Cursos(string _codigo, string _ncurso, int _ido, string np, int _bloque){
   codigo_cursos = _codigo;
   nombre_curso = _ncurso;
   id_docente = _ido;
@@ -88,6 +91,9 @@ bool Cursos::cursos_inf(string id){
   return Es_inf;
 }
 
+void Cursos::cursos_mostrar(){
+  cout<< codigo_cursos << " " << nombre_curso << " "<< id_docente<< " " << bloque << endl;
+}
 Cursos::~Cursos()
 {
   //destructor

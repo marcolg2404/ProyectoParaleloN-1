@@ -150,3 +150,35 @@ vector<Profesor> asignacion_profesores(){
 
   return v;
 }
+
+vector<Cursos> rescatando_cursos(){
+    int id_p,n_bloques,aux=0;
+    vector<Cursos> v;
+    Cursos temp;
+    vector<string> VectorAux;//vevtor para la clase profesor
+    string nombre_p,nombre_c, cod;
+    workbook wb;
+    wb.load("./Archivos/Cursos.xlsx");
+      auto ws = wb.sheet_by_title("Secciones");
+      for(auto row : ws.rows(false))
+      {
+        for (auto cell:row)
+        {
+          aux++;
+          if(aux>6){// se salta los bloques de descripcion
+            VectorAux.push_back(cell.to_string()); //a un vector axiliar le estamos dando todos los datos
+          }
+        }
+      }
+      for(int i=0;i<VectorAux.size(); i=i+6){
+        id_p = stoi(VectorAux[i+2]);
+        nombre_c = VectorAux[i+1];
+        cod = VectorAux[i];
+        n_bloques= stoi(VectorAux[i+5]);
+        nombre_p = VectorAux[i+3]+" "+VectorAux[i+4];
+        temp.set_Cursos(cod,nombre_c,id_p,nombre_p, n_bloques);
+        v.push_back(temp);
+
+      }
+      return v;
+    }

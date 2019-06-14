@@ -18,7 +18,12 @@ using namespace xlnt;
 int main(int argc, char **argv)
 {
   vector<Profesor> profes;
+  vector<Cursos> cursos;
   profes = asignacion_profesores();
+  cursos = rescatando_cursos();
   profes[1].mostrar();
+  for( int i=0; i< cursos.size();i++){
+     cursos[i].cursos_mostrar();
+  }
   return 0;
 }

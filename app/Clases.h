@@ -37,10 +37,11 @@ private://atributos de la clase
 class Cursos
 {
 public: //metodos
-Cursos(string, string, int, string, int);
+Cursos();// constructor
+void set_Cursos(string, string, int, string, int);
 //void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo);
 bool cursos_inf(string id);
-Cursos();
+void cursos_mostrar();
 virtual ~Cursos();
 
 private: //atributos
