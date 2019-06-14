@@ -21,39 +21,3 @@ junto a los bloques que a la semana se requieren cubrir.
 *  Los laboratorios sólo pueden ser usados por asignaturas cuyo código comiencen con
 INF.
 * La asignación de sala debe ser coherentes en todos los niveles.
-
-# INSTALACIÓN LIBRERÍA XLNT
-
-**PASO 1**
-
-> $ sudo apt-get update
-
-> $ sudo apt-get upgrade
-
-> $ sudo apt-get install zlibc
-
-**PASO 2: ACTUALIZAR COMPILADOR Y CONFIGURAR VARIABLES DE ENTORNO**
-
->  $ sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-
->  $ sudo apt update
-
-> $ sudo apt-get upgrade
-
-> $ sudo apt-get install gcc -6 g++ -6
-
-> $ export CC=/usr/bin/gcc-6
-
-> $ export CXX=/usr/bin/g++-6
-
-**PASO 3: CLONAR REPOSITORIO**
-
-> $ git clone https://github.com/tfussell/xlnt/archive/master.zip
-
->  $ cd xlnt-master
-
-> $ cmake .
-
-> $ make -j 2
-
-> $ sudo make install
