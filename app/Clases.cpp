@@ -69,6 +69,18 @@ void Profesor::set_sabado(vector<string> _sa)
   sabado=_sa;
 }
 
+int Profesor::get_id(){
+  return id_profe;
+}
+
+bool operator<(Profesor &s1, Profesor &s2){
+  if(s1.get_id() < s2.get_id()){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
 //CLASE 2: CURSOS
 Cursos::Cursos(){
 
@@ -80,7 +92,9 @@ void Cursos::set_Cursos(string _codigo, string _ncurso, int _ido, string np, int
   nombre_p = np;
   bloque = _bloque;
 }
-
+int Cursos::getID_profe(){
+  return id_docente;
+}
 bool Cursos::cursos_inf(string id){
       bool Es_inf = false;
       size_t encontrar_INF = id.find("INF");
@@ -99,6 +113,9 @@ Cursos::~Cursos()
   //destructor
 }
 
+bool operator<(Cursos &s1, Cursos &s2){
+  return s1.getID_profe()< s2.getID_profe();
+}
 
 //CLASE 3: HORARIO
 void Horario::crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo){

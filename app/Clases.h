@@ -21,6 +21,7 @@ public://metodos de la clase
   void set_jueves(vector<string> );
   void set_viernes(vector<string> );
   void set_sabado(vector<string> );
+  int get_id();
 
 private://atributos de la clase
   int id_profe;
@@ -39,6 +40,7 @@ class Cursos
 public: //metodos
 Cursos();// constructor
 void set_Cursos(string, string, int, string, int);
+int getID_profe();
 //void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo);
 bool cursos_inf(string id);
 void cursos_mostrar();
@@ -67,6 +69,8 @@ private:
   int bloque;
 };
 
-
+//sobrecarga del operador de la clase vector creo que puedo ocuparlo para el resto tambien
+bool operator<( Profesor &s1, Profesor &s2);
+bool operator<( Cursos &s1, Cursos &s2);
 
 #endif // CLASES_H

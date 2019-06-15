@@ -151,6 +151,30 @@ vector<Profesor> asignacion_profesores(){
   return v;
 }
 
+
+void asignacion_sabado(vector<Profesor> &v){
+  int aux=0;
+  vector<string> VectorAux,sabado;//vevtor para la clase profesor
+  workbook wb;
+  wb.load("./Archivos/Docentes.xlsx");
+  auto ws = wb.sheet_by_title("Sábado");
+  for(auto row : ws.rows(false))
+  {
+    for (auto cell:row)
+    {
+      aux++;
+      if(aux>7){// se salta los bloques de descripcion
+        VectorAux.push_back(cell.to_string()); //a un vector axiliar le estamos dando todos los datos
+      }
+    }
+  }
+  for(int i=0; i<VectorAux.size(); i=i+7){
+    sabado = {VectorAux[i+3],VectorAux[i+4],VectorAux[i+5],VectorAux[i+6]};
+    v[i/7].set_sabado(sabado);
+  }
+}
+
+
 vector<Cursos> rescatando_cursos(){
     int id_p,n_bloques,aux=0;
     vector<Cursos> v;
@@ -182,3 +206,5 @@ vector<Cursos> rescatando_cursos(){
       }
       return v;
     }
+
+//prototipos de funcion para escribir//

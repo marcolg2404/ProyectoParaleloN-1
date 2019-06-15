@@ -20,10 +20,12 @@ int main(int argc, char **argv)
   vector<Profesor> profes;
   vector<Cursos> cursos;
   profes = asignacion_profesores();
+  asignacion_sabado(profes);
   cursos = rescatando_cursos();
-  profes[1].mostrar();
-  for( int i=0; i< cursos.size();i++){
-     cursos[i].cursos_mostrar();
-  }
-  return 0;
+  profes[0].mostrar();
+  sort(profes.begin(),profes.end());
+  profes[0].mostrar();
+  cursos[0].cursos_mostrar();
+  sort(cursos.begin(),cursos.end());
+  cursos[0].cursos_mostrar();
 }
