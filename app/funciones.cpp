@@ -170,7 +170,7 @@ vector<Profesor> asignacion_profesores(){
 
 void asignacion_sabado(vector<Profesor> &v){
   int aux=0;
-  vector<string> VectorAux,sabado;//vevtor para la clase profesor
+  vector<string> VectorAux,sabado;//vector para la clase profesor
   int *cat;
   workbook wb;
   wb.load("./Archivos/Docentes.xlsx");
@@ -181,7 +181,7 @@ void asignacion_sabado(vector<Profesor> &v){
     {
       aux++;
       if(aux>7){// se salta los bloques de descripcion
-        VectorAux.push_back(cell.to_string()); //a un vector axiliar le estamos dando todos los datos
+        VectorAux.push_back(cell.to_string()); //a un vector auxiliar le estamos dando todos los datos
       }
     }
   }
@@ -228,25 +228,11 @@ vector<Cursos> rescatando_cursos(){
 //prototipos de funcion para escribir//
 int *StringtoBool(vector<string> vec){
   static int aux[6];
-  if(vec.size()>3)
-  {
-    for(int i=0; i<vec.size();i++){
-      if(vec[i]=="DISPONIBLE"){
+  for(int i=0; i<vec.size();i++){
+    if(vec[i]=="DISPONIBLE"){
         aux[i] = 1;
-      }
-      else{aux[i]=0;}
     }
-  }
-  else{
-    for(int i=0;i<vec.size();i++){
-      if(vec[i]=="DISPONIBLE"){
-        aux[i]=1;
-      }
-      else{
-        aux[i]=0;
-      }
+    else{aux[i]=0;}
     }
-  }
-
   return aux;
 }
