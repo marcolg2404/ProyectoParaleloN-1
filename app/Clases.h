@@ -17,7 +17,7 @@ public://metodos de la clase
   Profesor(int,string);//constructor
   void mostrar();
   void iniciar_matriz();
-  void set_lunes(int *);
+  void set_lunes(int *);//metodos para llenar cada dia de la matriz
   void set_martes(int * );
   void set_miercoles(int*);
   void set_jueves(int*);
@@ -27,7 +27,7 @@ public://metodos de la clase
 private://atributos de la clase
   int id_profe;
   string nombre;
-  int horario [7][6];
+  int horario [7][6];//matriz de 7 bloques 6 dias
 };
 
 /* CLASE 2: CURSOS */
