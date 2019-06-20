@@ -12,61 +12,97 @@ using namespace xlnt;
 /*Declaracion de los métodos*/
 
 //CLASE 1: PROFESOR
-Profesor::Profesor(int _id, string _nombre,vector<string> _bloques)
+Profesor::Profesor(int _id, string _nombre)
 {
   id_profe = _id;
   nombre = _nombre;
-  lunes = _bloques;
+
+}
+void Profesor::iniciar_matriz(){
+  for(int x=0;x<7;x++)  // loop 3 times for three lines
+   {
+       for(int y=0;y<6;y++)  //
+       {
+           horario[x][y]=0;  //
+       }
+ }
 }
 
-void Profesor::mostrar() /// funcion para mostrar el contenido de cada objeto
+void Profesor::mostrar() /// funcion para mostrar el contenido de cada objeto como matriz
 {
-  cout << id_profe <<" "<< nombre << endl;
-  for (int i=0 ;i<lunes.size();i++)
-  {
-    cout << lunes[i] << "\t";
-  }
-  cout << endl;
-  for (int i=0 ;i<martes.size();i++)
-  {
-    cout << martes[i] << "\t";
-  }
-  cout << endl;
-  for (int i=0 ;i<miercoles.size();i++)
-  {
-    cout << miercoles[i] << "\t";
-  }
-  cout << endl;
-  for (int i=0 ;i<sabado.size();i++)
-  {
-    cout << sabado[i] << "\t";
-  }
-  cout << endl;
+  for(int x=0;x<7;x++)
+   {
+       for(int y=0;y<6;y++)
+       {
+           cout<<horario[x][y]<<" ";  // muestra el actual
+       }
+   cout<<endl;  //cuando el loop de dentro termina se salta una linea
+   }
+   cout <<endl;
 }
 
-void Profesor::set_martes(vector<string> _ma)
+void Profesor::set_lunes(int *_lu){
+  horario[0][0]=_lu[0];
+  horario[1][0]=_lu[1];
+  horario[2][0]=_lu[2];
+  horario[3][0]=_lu[3];
+  horario[4][0]=_lu[4];
+  horario[5][0]=_lu[5];
+  horario[6][0]=_lu[6];
+}
+void Profesor::set_martes(int *_ma)
 {
-    martes=_ma;
+    horario[0][1]=_ma[0];
+    horario[1][1]=_ma[1];
+    horario[2][1]=_ma[2];
+    horario[3][1]=_ma[3];
+    horario[4][1]=_ma[4];
+    horario[5][1]=_ma[5];
+    horario[6][1]=_ma[6];
 }
 
-void Profesor::set_miercoles(vector<string>_mi )
+void Profesor::set_miercoles(int *_mi )
 {
-    miercoles = _mi;
+  horario[0][2]=_mi[0];
+  horario[1][2]=_mi[1];
+  horario[2][2]=_mi[2];
+  horario[3][2]=_mi[3];
+  horario[4][2]=_mi[4];
+  horario[5][2]=_mi[5];
+  horario[6][2]=_mi[6];
 }
 
-void Profesor::set_jueves(vector<string> _ju)
+void Profesor::set_jueves(int *_ju)
 {
-  jueves= _ju;
+  horario[0][3]=_ju[0];
+  horario[1][3]=_ju[1];
+  horario[2][3]=_ju[2];
+  horario[3][3]=_ju[3];
+  horario[4][3]=_ju[4];
+  horario[5][3]=_ju[5];
+  horario[6][3]=_ju[6];
 }
 
-void Profesor::set_viernes(vector<string> _vi)
+void Profesor::set_viernes(int *_vi)
 {
-  viernes = _vi;
+  horario[0][4]=_vi[0];
+  horario[1][4]=_vi[1];
+  horario[2][4]=_vi[2];
+  horario[3][4]=_vi[3];
+  horario[4][4]=_vi[4];
+  horario[5][4]=_vi[5];
+  horario[6][4]=_vi[6];
 }
 
-void Profesor::set_sabado(vector<string> _sa)
+void Profesor::set_sabado(int *_sa)
 {
-  sabado=_sa;
+  horario[0][5]=_sa[0];
+  horario[1][5]=_sa[1];
+  horario[2][5]=_sa[2];
+  horario[3][5]=_sa[3];
+  horario[4][5]=0;
+  horario[5][5]=0;
+  horario[6][5]=0;
 }
 
 int Profesor::get_id(){

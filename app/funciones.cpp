@@ -97,6 +97,7 @@ vector<Profesor> asignacion_profesores(){
   vector<Profesor> v;
   vector<string> VectorAux;//vevtor para la clase profesor
   vector<string> b;
+  int *cat;
   string nombre_p;
   workbook wb;
   vector<string> dias = {"Lunes","Martes","Miércoles","Jueves","Viernes"};// aca la idea esque cuando abra el archivo lleanr este vector
@@ -115,37 +116,52 @@ vector<Profesor> asignacion_profesores(){
     }
     for(int i=0; i<VectorAux.size(); i=i+10)//se aumentan 10 celdas ya que
     {
+
       if(h==0){//Lunes
       id_p =stoi(VectorAux[i]);
       nombre_p =VectorAux[i+1] +" "+ VectorAux[i+2];// dejamos el nombre y apellido juntos
       b = {VectorAux[i+3],VectorAux[i+4],VectorAux[i+5],VectorAux[i+6],VectorAux[i+7],VectorAux[i+8],VectorAux[i+9]};
-      Profesor aux(id_p,nombre_p,b);// le damos los parametros a un objeto auxiliar
-      v.push_back(Profesor(aux));// agregamos el objeto a un vector de objetos
+      cat=StringtoBool(b);
+
+      Profesor _nuevo(id_p,nombre_p);// le damos los parametros a un objeto auxiliar
+
+      _nuevo.set_lunes(cat);
+      v.push_back(Profesor(_nuevo));// agregamos el objeto a un vector de objetos
       b.clear(); //limpiamos el contenido del vector que indica la disponibilidad del horario
-                          }
+
+     }
       if (h==1){//martes
         b = {VectorAux[i+3],VectorAux[i+4],VectorAux[i+5],VectorAux[i+6],VectorAux[i+7],VectorAux[i+8],VectorAux[i+9]};
-        v[i/10].set_martes(b);// el i/10 es para sacar el identificador del vector de profesores
+        cat=StringtoBool(b);
+        v[i/10].set_martes(cat);// el i/10 es para sacar el identificador del vector de profesores
         b.clear();
+
+
       }
       if(h==2){//miercoles
         b = {VectorAux[i+3],VectorAux[i+4],VectorAux[i+5],VectorAux[i+6],VectorAux[i+7],VectorAux[i+8],VectorAux[i+9]};
-        v[i/10].set_miercoles(b);// el i/10 es para sacar el identificador del vector de profesores
+        cat=StringtoBool(b);
+        v[i/10].set_miercoles(cat);// el i/10 es para sacar el identificador del vector de profesores
         b.clear();
+
       }
       if(h==3){//jueves
         b = {VectorAux[i+3],VectorAux[i+4],VectorAux[i+5],VectorAux[i+6],VectorAux[i+7],VectorAux[i+8],VectorAux[i+9]};
-        v[i/10].set_jueves(b);// el i/10 es para sacar el identificador del vector de profesores
+        cat=StringtoBool(b);
+        v[i/10].set_jueves(cat);// el i/10 es para sacar el identificador del vector de profesores
         b.clear();
+
       }
       if(h==4){//viernes
         b = {VectorAux[i+3],VectorAux[i+4],VectorAux[i+5],VectorAux[i+6],VectorAux[i+7],VectorAux[i+8],VectorAux[i+9]};
-        v[i/10].set_viernes(b);// el i/10 es para sacar el identificador del vector de profesores
+        cat=StringtoBool(b);
+        v[i/10].set_viernes(cat);// el i/10 es para sacar el identificador del vector de profesores
         b.clear();
       }
     }
       VectorAux.clear();// se limpia el vector axuliar para la siguiente iteracion
       aux=0;//se limpia el contador axiliar para evitar tomar las cabeceras de los titulos
+      cat=NULL;
   }
 
   return v;
@@ -155,6 +171,7 @@ vector<Profesor> asignacion_profesores(){
 void asignacion_sabado(vector<Profesor> &v){
   int aux=0;
   vector<string> VectorAux,sabado;//vevtor para la clase profesor
+  int *cat;
   workbook wb;
   wb.load("./Archivos/Docentes.xlsx");
   auto ws = wb.sheet_by_title("Sábado");
@@ -170,7 +187,8 @@ void asignacion_sabado(vector<Profesor> &v){
   }
   for(int i=0; i<VectorAux.size(); i=i+7){
     sabado = {VectorAux[i+3],VectorAux[i+4],VectorAux[i+5],VectorAux[i+6]};
-    v[i/7].set_sabado(sabado);
+    cat=StringtoBool(sabado);
+    v[i/7].set_sabado(cat);
   }
 }
 
@@ -208,3 +226,27 @@ vector<Cursos> rescatando_cursos(){
     }
 
 //prototipos de funcion para escribir//
+int *StringtoBool(vector<string> vec){
+  static int aux[6];
+  if(vec.size()>3)
+  {
+    for(int i=0; i<vec.size();i++){
+      if(vec[i]=="DISPONIBLE"){
+        aux[i] = 1;
+      }
+      else{aux[i]=0;}
+    }
+  }
+  else{
+    for(int i=0;i<vec.size();i++){
+      if(vec[i]=="DISPONIBLE"){
+        aux[i]=1;
+      }
+      else{
+        aux[i]=0;
+      }
+    }
+  }
+
+  return aux;
+}

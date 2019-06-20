@@ -14,24 +14,20 @@ using namespace xlnt;
 /* CLASE 1: PROFESOR*/
 class Profesor{
 public://metodos de la clase
-  Profesor(int,string, vector<string> );//constructor
+  Profesor(int,string);//constructor
   void mostrar();
-  void set_martes(vector<string> );
-  void set_miercoles(vector<string> );
-  void set_jueves(vector<string> );
-  void set_viernes(vector<string> );
-  void set_sabado(vector<string> );
+  void iniciar_matriz();
+  void set_lunes(int *);
+  void set_martes(int * );
+  void set_miercoles(int*);
+  void set_jueves(int*);
+  void set_viernes(int*);
+  void set_sabado(int*);
   int get_id();
-
 private://atributos de la clase
   int id_profe;
   string nombre;
-  vector<string> lunes;// disponible o no disponible 0-6 //0-7
-  vector<string> martes;
-  vector<string> miercoles;
-  vector<string> jueves;
-  vector<string> viernes;
-  vector<string> sabado;
+  int horario [7][6];
 };
 
 /* CLASE 2: CURSOS */
