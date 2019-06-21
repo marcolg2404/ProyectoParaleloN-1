@@ -12,10 +12,9 @@ using namespace xlnt;
 /*Declaracion de los métodos*/
 
 //CLASE 1: PROFESOR
-Profesor::Profesor(int _id, string _nombre)
+Profesor::Profesor(int _id)
 {
         id_profe = _id;
-        nombre = _nombre;
 
 }
 void Profesor::iniciar_matriz(){
@@ -121,11 +120,9 @@ bool operator<(Profesor &s1, Profesor &s2){
 Cursos::Cursos(){
 
 }
-void Cursos::set_Cursos(string _codigo, string _ncurso, int _ido, string np, int _bloque){
+void Cursos::set_Cursos(string _codigo,  int _ido,  int _bloque){
         codigo_cursos = _codigo;
-        nombre_curso = _ncurso;
         id_docente = _ido;
-        nombre_p = np;
         bloque = _bloque;
 }
 int Cursos::getID_profe(){
@@ -142,7 +139,7 @@ bool Cursos::cursos_inf(string id){
 }
 
 void Cursos::cursos_mostrar(){
-        cout<< codigo_cursos << " " << nombre_curso << " "<< id_docente<< " " << bloque << endl;
+        cout<< codigo_cursos << " " <<  id_docente<< " " << bloque << endl;
 }
 Cursos::~Cursos()
 {

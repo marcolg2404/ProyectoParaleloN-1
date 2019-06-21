@@ -15,9 +15,9 @@ using namespace xlnt;
 class Profesor {
 
 public://metodos de la clase
-Profesor(int,string);  //constructor
+Profesor(int);  //constructor
 void mostrar();
-void iniciar_matriz();
+void iniciar_matriz();// inicia la matriz con ceros
 void set_lunes(int *);  //metodos para llenar cada dia de la matriz
 void set_martes(int * );
 void set_miercoles(int*);
@@ -28,7 +28,6 @@ int get_id();
 
 private://atributos de la clase
 int id_profe;
-string nombre;
 int horario [7][6];  //matriz de 7 bloques 6 dias
 };
 
@@ -37,7 +36,7 @@ class Cursos {
 
 public: //metodos
 Cursos();// constructor
-void set_Cursos(string, string, int, string, int);
+void set_Cursos(string, int, int);
 int getID_profe();
 //void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo);
 bool cursos_inf(string id);
@@ -46,9 +45,7 @@ virtual ~Cursos();
 
 private: //atributos
 string codigo_cursos;
-string nombre_curso;
 int id_docente;
-string nombre_p;
 int bloque;
 };
 

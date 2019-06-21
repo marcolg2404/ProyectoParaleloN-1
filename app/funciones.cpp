@@ -20,7 +20,6 @@ vector<Profesor> asignacion_profesores(string Archivo){
         vector<string> VectorAux;//vector para la clase profesor
         vector<string> b;
         int *cat;
-        string nombre_p;
         workbook wb;
         vector<string> dias = {"Lunes","Martes","Miércoles","Jueves","Viernes"};// aca la idea es que cuando abra el archivo lleanr este vector
         wb.load(Archivo);
@@ -41,11 +40,10 @@ vector<Profesor> asignacion_profesores(string Archivo){
 
                         if(h==0) {//Lunes
                                 id_p =stoi(VectorAux[i]);
-                                nombre_p =VectorAux[i+1] +" "+ VectorAux[i+2];// dejamos el nombre y apellido juntos
                                 b = {VectorAux[i+3],VectorAux[i+4],VectorAux[i+5],VectorAux[i+6],VectorAux[i+7],VectorAux[i+8],VectorAux[i+9]};
                                 cat=StringtoBool(b);
 
-                                Profesor _nuevo(id_p,nombre_p);// le damos los parametros a un objeto auxiliar
+                                Profesor _nuevo(id_p);// le damos los parametros a un objeto auxiliar
 
                                 _nuevo.set_lunes(cat);
                                 v.push_back(Profesor(_nuevo));// agregamos el objeto a un vector de objetos
@@ -120,7 +118,7 @@ vector<Cursos> rescatando_cursos(string Archivo){
         vector<Cursos> v;
         Cursos temp;
         vector<string> VectorAux;//vevtor para la clase profesor
-        string nombre_p,nombre_c, cod;
+        string cod;
         workbook wb;
         wb.load(Archivo);
         auto ws = wb.sheet_by_title("Secciones");
@@ -136,11 +134,9 @@ vector<Cursos> rescatando_cursos(string Archivo){
         }
         for(int i=0; i<VectorAux.size(); i=i+6) {
                 id_p = stoi(VectorAux[i+2]);
-                nombre_c = VectorAux[i+1];
                 cod = VectorAux[i];
                 n_bloques= stoi(VectorAux[i+5]);
-                nombre_p = VectorAux[i+3]+" "+VectorAux[i+4];
-                temp.set_Cursos(cod,nombre_c,id_p,nombre_p, n_bloques);
+                temp.set_Cursos(cod,id_p, n_bloques);
                 v.push_back(temp);
 
         }
