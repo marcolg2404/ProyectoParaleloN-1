@@ -1,26 +1,36 @@
 CXX = g++
-CXXFLAGS = -g3 -Wall
-MKDIR = mkdir -p
+CXXFLAGS = -std=c++14
+#MKDIR = mkdir -p
 
-LIBS=-lm
+#LDFLAGS = -lxlsxwriter -Ixlnt/include -lxlnt
+#Las librerias usadas son:
+# - lxnt : Libreria para leer archivos.
+# - lxlsxwriter : Libreria para escribir archivos.
+LIBS =  -lxlsxwriter -Ixlnt/include -lxlnt
 
-directorios: 
-	$(MKDIR) build dist
+#Se crean los directorios para la función principal, clases y funciones, además se crea un directorio para que su ejecución sea llamada "ProyectoParalela"
+PRINCIPAL = main.cpp
+CLASES = Clases.cpp
+FUNCIONES = funciones.cpp
+PROYECTO = ProyectoParalela
 
-main.o: directorios main.cpp
-	$(CXX) $(CXXFLAGS) -c main.cpp -o build/main.o
+#Archivos excel
+XLSX = Cursos.xlsx Docentes.xlsx Salas.xlsx
 
-Clases.o: directorios Clases.cpp Clases.h
-	$(CXX) $(CXXFLAGS) -c Clases.cpp -o build/Clases.o
+#El directorio Proyecto usará como principal el main del proyecto
+#Se compila
+Proyecto: main.cpp
+#g++ main.cpp Clases.cpp funciones.cpp -o ProyectoParalela -std=c++14 -lxlsxwriter -Ixlnt/include -lxlnt
+	$(CXX) $(PRINCIPAL) $(CLASES) $(FUNCIONES) -o $(PROYECTO) $(CXXFLAGS) $(LIBS)
+#Destruye el archivo creado
+	clear
+	./$(PROYECTO) $(XLSX)
 
-funciones.o: directorios funciones.cpp funciones.h
-	$(CXX) $(CXXFLAGS) -c funciones.cpp -o build/funciones.o
-
-all: clean main.o Clases.o funciones.o
-	$(CXX) $(CXXFLAGS) $(LIBS) -o dist/programa build/main.o build/Clases.o build/funciones.o
-	rm -fr build
-
-clean:
-	rm -fr *.o a.out programa dist build
-
-.DEFAULT_GOAL := all
+#Mostrará el archivo en ejecución
+#./ProyectoParalela Cursos.xlsx Docentes.xlsx Salas.xlsx
+Ejecucion:
+	clear
+	./$(PROYECTO) $(XLSX)
+#Destruye la salida creada
+clear:
+	rm -fr *.o a.out $(ProyectoParalela)
