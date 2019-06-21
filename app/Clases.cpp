@@ -154,7 +154,7 @@ bool operator<(Cursos &s1, Cursos &s2){
 }
 
 //CLASE 3: HORARIO(Archivo final)
-void Horario::crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo){
+/*void Horario::crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo){
         lxw_format *formato = workbook_add_format(archivo);
         format_set_bold(formato);
         format_set_align(formato, LXW_ALIGN_CENTER);
@@ -174,3 +174,4 @@ void Horario::crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo){
         worksheet_write_number(hoja, 7, 0, 7, formato);
         worksheet_write_number(hoja, 8, 0, 8, formato);
 }
+*/

@@ -6,8 +6,8 @@
 
 
 void funcion_formato();
-vector<Profesor>asignacion_profesores();
-vector<Cursos> rescatando_cursos();
+vector<Profesor>asignacion_profesores(string Archivo);
+vector<Cursos> rescatando_cursos(string Archivo);
 void asignacion_sabado(vector<Profesor> &);
 int *StringtoBool(vector<string> );
 char* obtener_salas(char** matriz, int largo);

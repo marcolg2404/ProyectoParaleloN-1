@@ -14,7 +14,7 @@ using namespace xlnt;
 // 1. FUNCION PARA LA CREACION DEL FORMATO DEL ARCHIVO
 
 // 2. FUNCION PARA HORARIO
-vector<Profesor> asignacion_profesores(){
+vector<Profesor> asignacion_profesores(string Archivo){
         int id_p,aux=0;
         vector<Profesor> v;
         vector<string> VectorAux;//vector para la clase profesor
@@ -23,7 +23,7 @@ vector<Profesor> asignacion_profesores(){
         string nombre_p;
         workbook wb;
         vector<string> dias = {"Lunes","Martes","Miércoles","Jueves","Viernes"};// aca la idea es que cuando abra el archivo lleanr este vector
-        wb.load("./Archivos/Docentes.xlsx");
+        wb.load(Archivo);
         for(int h=0; h< dias.size(); h++) {
                 auto ws = wb.sheet_by_title(dias[h]);
                 for(auto row : ws.rows(false))
@@ -115,14 +115,14 @@ void asignacion_sabado(vector<Profesor> &v){
 }
 
 
-vector<Cursos> rescatando_cursos(){
+vector<Cursos> rescatando_cursos(string Archivo){
         int id_p,n_bloques,aux=0;
         vector<Cursos> v;
         Cursos temp;
         vector<string> VectorAux;//vevtor para la clase profesor
         string nombre_p,nombre_c, cod;
         workbook wb;
-        wb.load("./Archivos/Cursos.xlsx");
+        wb.load(Archivo);
         auto ws = wb.sheet_by_title("Secciones");
         for(auto row : ws.rows(false))
         {
@@ -233,7 +233,29 @@ char* obtener_docentes(char** matriz, int largo) {
 
         return archivo;
 }
-
+void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo){
+        lxw_format *formato = workbook_add_format(archivo);;
+        format_set_bold(formato);
+        format_set_align(formato, LXW_ALIGN_CENTER);
+        format_set_bottom(formato,LXW_BORDER_THIN);
+        format_set_top(formato,LXW_BORDER_THIN);
+        format_set_left(formato,LXW_BORDER_THIN);
+        format_set_right(formato,LXW_BORDER_THIN);
+        worksheet_write_string(hoja, 0, 0, "Periodo", formato); //Hoja, fila,columna , dato, formato)
+        worksheet_write_string(hoja, 0, 1, "Lunes", formato);
+        worksheet_write_string(hoja, 0, 2, "Martes", formato);
+        worksheet_write_string(hoja, 0, 3, "Miércoles", formato);
+        worksheet_write_string(hoja, 0, 4, "Jueves", formato);
+        worksheet_write_string(hoja, 0, 5, "Viernes", formato);
+        worksheet_write_string(hoja, 0, 6, "Sábado", formato);
+        worksheet_write_number(hoja, 1, 0, 1, formato);
+        worksheet_write_number(hoja, 2, 0, 2, formato);
+        worksheet_write_number(hoja, 3, 0, 3, formato);
+        worksheet_write_number(hoja, 4, 0, 4, formato);
+        worksheet_write_number(hoja, 5, 0, 5, formato);
+        worksheet_write_number(hoja, 6, 0, 6, formato);
+        worksheet_write_number(hoja, 7, 0, 7, formato);
+}
 //prototipos de funcion para escribir//
 int *StringtoBool(vector<string> vec){
         static int aux[6];

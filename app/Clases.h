@@ -58,7 +58,7 @@ class Horario {
 
 public:
 Horario(string, string,int);
-void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo);
+//void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo);
 Horario();
 virtual ~Horario();
 

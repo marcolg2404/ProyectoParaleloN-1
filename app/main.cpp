@@ -24,12 +24,14 @@ int main(int argc, char **argv)
                 string Archivo_Docentes = obtener_docentes(argv,argc);;
 
                 if (!Archivo_Cursos.empty() && !Archivo_Salas.empty() && !Archivo_Docentes.empty()) {
+                        lxw_workbook  *wb_salas  = workbook_new("Horarios.xlsx");
 
                         vector<Profesor> profes;
                         vector<Cursos> cursos;
-                        profes = asignacion_profesores();
+
+                        profes = asignacion_profesores(Archivo_Docentes);
                         asignacion_sabado(profes);
-                        cursos = rescatando_cursos();
+                        cursos = rescatando_cursos(Archivo_Cursos);
                         profes[0].mostrar();
                         sort(profes.begin(),profes.end());
                         profes[0].mostrar();
@@ -37,14 +39,20 @@ int main(int argc, char **argv)
                         sort(cursos.begin(),cursos.end());
                         cursos[45].cursos_mostrar();
 
-                        /*
-                           vector<string> salass = asignacion_salas(Archivo_Salas);
-                           for(int i=0;i<salass.size();i++)
-                           {
-                           cout<<salass[i]<<endl;
-                           }*/
-                }
+                        vector<string> salass = asignacion_salas(Archivo_Salas);
 
+                        for(int i=0; i<salass.size(); i++)
+                        {
+
+                                string sala = salass[i];
+                                const char* char_sala = sala.c_str();
+                                lxw_worksheet *hoja = workbook_add_worksheet(wb_salas,char_sala);
+                                crear_formato(hoja,wb_salas);
+                                sala.clear();
+                        }
+                        workbook_close(wb_salas);
+
+                }
                 else{
                         cout<<"Error, los archivos estan vacíos."<<endl;
                 }
