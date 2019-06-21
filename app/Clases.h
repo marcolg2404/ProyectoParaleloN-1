@@ -25,6 +25,7 @@ void set_jueves(int*);
 void set_viernes(int*);
 void set_sabado(int*);
 int get_id();
+int **get_horario();
 
 private://atributos de la clase
 int id_profe;
@@ -34,9 +35,10 @@ int horario [7][6];  //matriz de 7 bloques 6 dias
 /* CLASE 2: CURSOS */
 class Cursos {
 
-public: //metodos
+public: //metodo
 Cursos();// constructor
 void set_Cursos(string, int, int);
+int get_horas();
 int getID_profe();
 //void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo);
 bool cursos_inf(string id);
@@ -68,5 +70,5 @@ int bloque;
 //sobrecarga del operador de la clase vector creo que puedo ocuparlo para el resto tambien
 bool operator<( Profesor &s1, Profesor &s2);
 bool operator<( Cursos &s1, Cursos &s2);
-
+bool operator== (Cursos &n1, Cursos &n2);
 #endif // CLASES_H

@@ -29,6 +29,7 @@ void Profesor::iniciar_matriz(){
 
 void Profesor::mostrar() /// funcion para mostrar el contenido de cada objeto como matriz
 {
+      cout << id_profe << endl;
         for(int x=0; x<7; x++)
         {
                 for(int y=0; y<6; y++)
@@ -107,6 +108,18 @@ void Profesor::set_sabado(int *_sa)
 int Profesor::get_id(){
         return id_profe;
 }
+int **Profesor::get_horario(){
+  int** aux=new int*[7];
+  for(int x=0; x<7; x++) // loop 3 times for three lines
+  {
+          aux[x]=new int[6];
+          for(int y=0; y<6; y++) //
+          {
+                  aux[x][y]=horario[x][y]; //
+          }
+  }
+  return aux;
+}
 
 bool operator<(Profesor &s1, Profesor &s2){
         if(s1.get_id() < s2.get_id()) {
@@ -128,6 +141,11 @@ void Cursos::set_Cursos(string _codigo,  int _ido,  int _bloque){
 int Cursos::getID_profe(){
         return id_docente;
 }
+
+int Cursos::get_horas(){
+  return bloque;// retorna la cantidad de horas pedagogica
+}
+
 bool Cursos::cursos_inf(string id){
         bool Es_inf = false;
         size_t encontrar_INF = id.find("INF");
@@ -149,26 +167,7 @@ Cursos::~Cursos()
 bool operator<(Cursos &s1, Cursos &s2){
         return s1.getID_profe()< s2.getID_profe();
 }
-
-//CLASE 3: HORARIO(Archivo final)
-/*void Horario::crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo){
-        lxw_format *formato = workbook_add_format(archivo);
-        format_set_bold(formato);
-        format_set_align(formato, LXW_ALIGN_CENTER);
-        worksheet_write_string(hoja, 0, 0, "Periodo", formato); //Hoja, fila,columna , dato, formato)
-        worksheet_write_string(hoja, 0, 1, "Lunes", formato);
-        worksheet_write_string(hoja, 0, 2, "Martes", formato);
-        worksheet_write_string(hoja, 0, 3, "Miércoles", formato);
-        worksheet_write_string(hoja, 0, 4, "Jueves", formato);
-        worksheet_write_string(hoja, 0, 5, "Viernes", formato);
-        worksheet_write_string(hoja, 0, 6, "Sábado", formato);
-        worksheet_write_number(hoja, 1, 0, 1, formato);
-        worksheet_write_number(hoja, 2, 0, 2, formato);
-        worksheet_write_number(hoja, 3, 0, 3, formato);
-        worksheet_write_number(hoja, 4, 0, 4, formato);
-        worksheet_write_number(hoja, 5, 0, 5, formato);
-        worksheet_write_number(hoja, 6, 0, 6, formato);
-        worksheet_write_number(hoja, 7, 0, 7, formato);
-        worksheet_write_number(hoja, 8, 0, 8, formato);
+bool operator== (  Cursos &n1, Cursos &n2)
+{
+        return n1.getID_profe() == n2.getID_profe();
 }
-*/

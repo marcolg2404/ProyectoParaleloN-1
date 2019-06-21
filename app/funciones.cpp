@@ -4,6 +4,7 @@
 #include <wchar.h>
 #include <string>
 #include <vector>
+#include <algorithm>
 /*Cabezeras para manejos de archivos .xlsx*/
 #include <xlnt/xlnt.hpp>//Para leer archivos
 #include "xlsxwriter.h"//Para escribir archivo final
@@ -262,4 +263,20 @@ int *StringtoBool(vector<string> vec){
                 else{aux[i]=0;}
         }
         return aux;
+}
+
+
+int  encuentra_cp(Profesor pro, vector<Cursos> vec){ // encontrar un profesor particular
+  int id = pro.get_id();
+  int l=0;
+  int r= vec.size();
+  while (l <= r) {
+        int m = l + (r - l) / 2;
+        if (vec[m].getID_profe() == id)
+            return m;//vec[m].cursos_mostrar(); gato
+        if (vec[m].getID_profe() < id)
+            l = m + 1;
+        else
+        r = m - 1;
+      }
 }

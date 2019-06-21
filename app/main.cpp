@@ -7,6 +7,7 @@
 #include <wchar.h>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 /*Cabezeras para manejos de archivos .xlsx*/
 #include <xlnt/xlnt.hpp>//Para leer archivos
@@ -28,7 +29,7 @@ int main(int argc, char **argv)
 
                         vector<Profesor> profes;
                         vector<Cursos> cursos;
-
+                        int **matrix;
                         profes = asignacion_profesores(Archivo_Docentes);
                         asignacion_sabado(profes);
                         cursos = rescatando_cursos(Archivo_Cursos);
@@ -38,6 +39,7 @@ int main(int argc, char **argv)
                         cursos[0].cursos_mostrar();
                         sort(cursos.begin(),cursos.end());
                         cursos[45].cursos_mostrar();
+                        profes[26].mostrar();
 
                         vector<string> salass = asignacion_salas(Archivo_Salas);
 
