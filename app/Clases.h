@@ -52,19 +52,20 @@ int bloque;
 };
 
 
-/* CLASE 3: HORARIO */
-class Horario {
+/* CLASE 3: SALA */
+class Sala{
 
 public:
-Horario(string, string,int);
-//void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo);
-Horario();
-virtual ~Horario();
+Sala(string);
+void iniciar_matriz();
+void llenar_matriz();
+void set_sala(string);
+void mostrar_sala();
+virtual ~Sala();
 
 private:
-string id_curso;
-string id_prof;
-int bloque;
+string _sala;
+string matriz[7][6];
 };
 
 //sobrecarga del operador de la clase vector creo que puedo ocuparlo para el resto tambien

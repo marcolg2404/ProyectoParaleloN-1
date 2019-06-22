@@ -13,7 +13,29 @@ using namespace std;
 using namespace xlnt;
 
 // 1. FUNCION PARA LA CREACION DEL FORMATO DEL ARCHIVO
-
+void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo){
+        lxw_format *formato = workbook_add_format(archivo);;
+        format_set_bold(formato);
+        format_set_align(formato, LXW_ALIGN_CENTER);
+        format_set_bottom(formato,LXW_BORDER_THIN);
+        format_set_top(formato,LXW_BORDER_THIN);
+        format_set_left(formato,LXW_BORDER_THIN);
+        format_set_right(formato,LXW_BORDER_THIN);
+        worksheet_write_string(hoja, 0, 0, "Periodo", formato); //Hoja, fila,columna , dato, formato)
+        worksheet_write_string(hoja, 0, 1, "Lunes", formato);
+        worksheet_write_string(hoja, 0, 2, "Martes", formato);
+        worksheet_write_string(hoja, 0, 3, "Miércoles", formato);
+        worksheet_write_string(hoja, 0, 4, "Jueves", formato);
+        worksheet_write_string(hoja, 0, 5, "Viernes", formato);
+        worksheet_write_string(hoja, 0, 6, "Sábado", formato);
+        worksheet_write_number(hoja, 1, 0, 1, formato);
+        worksheet_write_number(hoja, 2, 0, 2, formato);
+        worksheet_write_number(hoja, 3, 0, 3, formato);
+        worksheet_write_number(hoja, 4, 0, 4, formato);
+        worksheet_write_number(hoja, 5, 0, 5, formato);
+        worksheet_write_number(hoja, 6, 0, 6, formato);
+        worksheet_write_number(hoja, 7, 0, 7, formato);
+}
 // 2. FUNCION PARA HORARIO
 vector<Profesor> asignacion_profesores(string Archivo){
         int id_p,aux=0;
@@ -144,7 +166,7 @@ vector<Cursos> rescatando_cursos(string Archivo){
         return v;
 }
 
-vector<string> asignacion_salas(string archivo){
+vector<string> guardar_salas(string archivo){
         int aux=0;
         workbook wb_salas;
         wb_salas.load(archivo);
@@ -230,29 +252,21 @@ char* obtener_docentes(char** matriz, int largo) {
 
         return archivo;
 }
-void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo){
-        lxw_format *formato = workbook_add_format(archivo);;
-        format_set_bold(formato);
-        format_set_align(formato, LXW_ALIGN_CENTER);
-        format_set_bottom(formato,LXW_BORDER_THIN);
-        format_set_top(formato,LXW_BORDER_THIN);
-        format_set_left(formato,LXW_BORDER_THIN);
-        format_set_right(formato,LXW_BORDER_THIN);
-        worksheet_write_string(hoja, 0, 0, "Periodo", formato); //Hoja, fila,columna , dato, formato)
-        worksheet_write_string(hoja, 0, 1, "Lunes", formato);
-        worksheet_write_string(hoja, 0, 2, "Martes", formato);
-        worksheet_write_string(hoja, 0, 3, "Miércoles", formato);
-        worksheet_write_string(hoja, 0, 4, "Jueves", formato);
-        worksheet_write_string(hoja, 0, 5, "Viernes", formato);
-        worksheet_write_string(hoja, 0, 6, "Sábado", formato);
-        worksheet_write_number(hoja, 1, 0, 1, formato);
-        worksheet_write_number(hoja, 2, 0, 2, formato);
-        worksheet_write_number(hoja, 3, 0, 3, formato);
-        worksheet_write_number(hoja, 4, 0, 4, formato);
-        worksheet_write_number(hoja, 5, 0, 5, formato);
-        worksheet_write_number(hoja, 6, 0, 6, formato);
-        worksheet_write_number(hoja, 7, 0, 7, formato);
+
+vector<Sala> Matrices_salas(vector<string>salas){
+  vector<Sala> v;
+  string aula;
+  for(int i=0; i<salas.size(); i++)
+  {
+          aula = salas[i];
+          Sala aux(aula);
+          aux.iniciar_matriz();
+          v.push_back(aux);
+          aula.clear();
+  }
+  return v;
 }
+
 //prototipos de funcion para escribir//
 int *StringtoBool(vector<string> vec){
         static int aux[6];
@@ -264,7 +278,6 @@ int *StringtoBool(vector<string> vec){
         }
         return aux;
 }
-
 
 int  encuentra_cp(Profesor pro, vector<Cursos> vec){ // encontrar un profesor particular
   int id = pro.get_id();

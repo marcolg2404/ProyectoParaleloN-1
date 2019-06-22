@@ -41,12 +41,15 @@ int main(int argc, char **argv)
                         cursos[45].cursos_mostrar();
                         profes[26].mostrar();
 
-                        vector<string> salass = asignacion_salas(Archivo_Salas);
-
-                        for(int i=0; i<salass.size(); i++)
+                        vector<string> salas = guardar_salas(Archivo_Salas);
+                        //Sala s1("m1-101");
+                        //s1.iniciar_matriz();
+                        //s1.mostrar_sala();
+                        
+                        for(int i=0; i<salas.size(); i++)
                         {
 
-                                string sala = salass[i];
+                                string sala = salas[i];
                                 const char* char_sala = sala.c_str();
                                 lxw_worksheet *hoja = workbook_add_worksheet(wb_salas,char_sala);
                                 crear_formato(hoja,wb_salas);

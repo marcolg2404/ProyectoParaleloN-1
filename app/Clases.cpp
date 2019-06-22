@@ -171,3 +171,35 @@ bool operator== (  Cursos &n1, Cursos &n2)
 {
         return n1.getID_profe() == n2.getID_profe();
 }
+
+//CLASE 3: SALAS
+void Sala::iniciar_matriz(){
+        for(int x=0; x<7; x++)
+        {
+                for(int y=0; y<6; y++)
+                {
+                        matriz[x][y]= "-";
+                }
+        }
+}
+Sala::Sala (string codigo) {
+  _sala = codigo;
+}
+
+void Sala::mostrar_sala() /// funcion para mostrar el contenido de cada objeto como matriz
+{
+        for(int x=0; x<7; x++)
+        {
+                for(int y=0; y<6; y++)
+                {
+                        cout<<matriz[x][y]; // muestra el actual
+                }
+                cout<<endl; //cuando el loop de dentro termina se salta una linea
+        }
+        cout <<endl;
+}
+
+Sala::~Sala()
+{
+        //destructor
+}
