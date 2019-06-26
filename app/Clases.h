@@ -40,7 +40,7 @@ Cursos();// constructor
 void set_Cursos(string, int, int);
 int get_horas();
 int getID_profe();
-//void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo);
+string getcodigo_curso();
 bool cursos_inf(string id);
 void cursos_mostrar();
 virtual ~Cursos();
@@ -58,9 +58,9 @@ class Sala{
 public:
 Sala(string);
 void iniciar_matriz();
-void llenar_matriz();
-void set_sala(string);
 void mostrar_sala();
+string **get_sala();
+string get_nombre_sala();
 virtual ~Sala();
 
 private:

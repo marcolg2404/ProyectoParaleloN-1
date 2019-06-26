@@ -108,6 +108,7 @@ void Profesor::set_sabado(int *_sa)
 int Profesor::get_id(){
         return id_profe;
 }
+
 int **Profesor::get_horario(){
   int** aux=new int*[7];
   for(int x=0; x<7; x++) // loop 3 times for three lines
@@ -140,6 +141,10 @@ void Cursos::set_Cursos(string _codigo,  int _ido,  int _bloque){
 }
 int Cursos::getID_profe(){
         return id_docente;
+}
+
+string Cursos::getcodigo_curso(){
+        return codigo_cursos;
 }
 
 int Cursos::get_horas(){
@@ -197,6 +202,24 @@ void Sala::mostrar_sala() /// funcion para mostrar el contenido de cada objeto c
                 cout<<endl; //cuando el loop de dentro termina se salta una linea
         }
         cout <<endl;
+}
+
+
+string **Sala::get_sala(){
+  string** aux=new string*[7];
+  for(int x=0; x<7; x++)
+  {
+          aux[x]=new string[6];
+          for(int y=0; y<6; y++)
+          {
+                  aux[x][y]=matriz[x][y];
+          }
+  }
+  return aux;
+}
+
+string Sala::get_nombre_sala(){
+        return _sala;
 }
 
 Sala::~Sala()

@@ -111,12 +111,12 @@ vector<Profesor> asignacion_profesores(string Archivo){
 }
 
 
-void asignacion_sabado(vector<Profesor> &v){
+void asignacion_sabado(vector<Profesor> &v,string Archivo){
         int aux=0;
         vector<string> VectorAux,sabado;//vector para la clase profesor
         int *cat;
         workbook wb;
-        wb.load("./Archivos/Docentes.xlsx");
+        wb.load(Archivo);
         auto ws = wb.sheet_by_title("Sábado");
         for(auto row : ws.rows(false))
         {
@@ -166,13 +166,13 @@ vector<Cursos> rescatando_cursos(string Archivo){
         return v;
 }
 
-vector<string> guardar_salas(string archivo){
+vector<Sala> guardar_salas(string archivo){
         int aux=0;
         workbook wb_salas;
         wb_salas.load(archivo);
         auto ws = wb_salas.active_sheet();
         string sala;
-        vector<string> vector_salas;
+        vector<Sala> vector_salas;
         vector<string>vectorCursos_filas;
         for (auto fila : ws.rows(false)) //row=fila
         {
@@ -187,15 +187,17 @@ vector<string> guardar_salas(string archivo){
 
         for(int i=0; i<vectorCursos_filas.size(); i=i+2)
         {
-                sala=(vectorCursos_filas[i]+"-"+vectorCursos_filas[i+1]);
-                vector_salas.push_back(sala);
+
+                Sala salax(vectorCursos_filas[i]+"-"+vectorCursos_filas[i+1]);
+                salax.iniciar_matriz();
+                vector_salas.push_back(salax);
                 sala.clear();
         }
         vectorCursos_filas.clear();
         return vector_salas;
 }
 
-
+//Función para obtener el argumento del archivo salas.xlsx
 char* obtener_salas(char** matriz, int largo) {
         char* archivo = NULL;
         int i = 0, k = 0;
@@ -215,6 +217,7 @@ char* obtener_salas(char** matriz, int largo) {
         return archivo;
 }
 
+//Función para obtener el argumento del archivo Cursos.xlsx
 char* obtener_cursos(char** matriz, int largo) {
         char* archivo = NULL;
         int i = 0, k = 0;
@@ -234,6 +237,7 @@ char* obtener_cursos(char** matriz, int largo) {
         return archivo;
 }
 
+//Función para obtener el argumento del archivo Docentes.xlsx
 char* obtener_docentes(char** matriz, int largo) {
         char* archivo = NULL;
         int i = 0, k = 0;
@@ -279,17 +283,19 @@ int *StringtoBool(vector<string> vec){
         return aux;
 }
 
-int  encuentra_cp(Profesor pro, vector<Cursos> vec){ // encontrar un profesor particular
+vector<Cursos> encuentra_cp(Profesor pro, vector<Cursos> vec){ // encontrar un profesor particular
   int id = pro.get_id();
   int l=0;
   int r= vec.size();
+  vector<Cursos> aux;
   while (l <= r) {
         int m = l + (r - l) / 2;
         if (vec[m].getID_profe() == id)
-            return m;//vec[m].cursos_mostrar(); gato
+            aux.push_back(vec[m]);
         if (vec[m].getID_profe() < id)
             l = m + 1;
         else
         r = m - 1;
       }
+  return aux;
 }
