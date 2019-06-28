@@ -26,6 +26,7 @@ void set_viernes(int*);
 void set_sabado(int*);
 int get_id();
 int **get_horario();
+void cambiar_disponibilidad(int,int);
 
 private://atributos de la clase
 int id_profe;
@@ -61,6 +62,7 @@ void iniciar_matriz();
 void mostrar_sala();
 string **get_sala();
 string get_nombre_sala();
+void cambiar_seccion(int, int, string);
 virtual ~Sala();
 
 private:

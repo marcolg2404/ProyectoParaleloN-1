@@ -122,6 +122,10 @@ int **Profesor::get_horario(){
   return aux;
 }
 
+void Profesor::cambiar_disponibilidad(int fila,int columna){
+  horario[fila][columna]==0;
+}
+
 bool operator<(Profesor &s1, Profesor &s2){
         if(s1.get_id() < s2.get_id()) {
                 return true;
@@ -204,6 +208,9 @@ void Sala::mostrar_sala() /// funcion para mostrar el contenido de cada objeto c
         cout <<endl;
 }
 
+void Sala::cambiar_seccion(int fila, int columna, string codigo){
+  matriz[fila][columna]=codigo;
+}
 
 string **Sala::get_sala(){
   string** aux=new string*[7];
