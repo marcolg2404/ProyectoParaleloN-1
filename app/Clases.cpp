@@ -29,7 +29,7 @@ void Profesor::iniciar_matriz(){
 
 void Profesor::mostrar() /// funcion para mostrar el contenido de cada objeto como matriz
 {
-      cout << id_profe << endl;
+        cout << id_profe << endl;
         for(int x=0; x<7; x++)
         {
                 for(int y=0; y<6; y++)
@@ -110,20 +110,20 @@ int Profesor::get_id(){
 }
 
 int **Profesor::get_horario(){
-  int** aux=new int*[7];
-  for(int x=0; x<7; x++) // loop 3 times for three lines
-  {
-          aux[x]=new int[6];
-          for(int y=0; y<6; y++) //
-          {
-                  aux[x][y]=horario[x][y]; //
-          }
-  }
-  return aux;
+        int** aux=new int*[7];
+        for(int x=0; x<7; x++) // loop 3 times for three lines
+        {
+                aux[x]=new int[6];
+                for(int y=0; y<6; y++) //
+                {
+                        aux[x][y]=horario[x][y]; //
+                }
+        }
+        return aux;
 }
 
 void Profesor::cambiar_disponibilidad(int fila,int columna){
-  horario[fila][columna]==0;
+        horario[fila][columna]==0;
 }
 
 bool operator<(Profesor &s1, Profesor &s2){
@@ -152,17 +152,7 @@ string Cursos::getcodigo_curso(){
 }
 
 int Cursos::get_horas(){
-  return bloque;// retorna la cantidad de horas pedagogica
-}
-
-bool Cursos::cursos_inf(string id){
-        bool Es_inf = false;
-        size_t encontrar_INF = id.find("INF");
-        if (encontrar_INF!=string::npos)
-        {
-                Es_inf = true;
-        }
-        return Es_inf;
+        return bloque;// retorna la cantidad de horas pedagogica
 }
 
 void Cursos::cursos_mostrar(){
@@ -187,12 +177,12 @@ void Sala::iniciar_matriz(){
         {
                 for(int y=0; y<6; y++)
                 {
-                        matriz[x][y]= "-";
+                        matriz[x][y]= " ";
                 }
         }
 }
 Sala::Sala (string codigo) {
-  _sala = codigo;
+        _sala = codigo;
 }
 
 void Sala::mostrar_sala() /// funcion para mostrar el contenido de cada objeto como matriz
@@ -209,20 +199,20 @@ void Sala::mostrar_sala() /// funcion para mostrar el contenido de cada objeto c
 }
 
 void Sala::cambiar_seccion(int fila, int columna, string codigo){
-  matriz[fila][columna]=codigo;
+        matriz[fila][columna]=codigo;
 }
 
 string **Sala::get_sala(){
-  string** aux=new string*[7];
-  for(int x=0; x<7; x++)
-  {
-          aux[x]=new string[6];
-          for(int y=0; y<6; y++)
-          {
-                  aux[x][y]=matriz[x][y];
-          }
-  }
-  return aux;
+        string** aux=new string*[7];
+        for(int x=0; x<7; x++)
+        {
+                aux[x]=new string[6];
+                for(int y=0; y<6; y++)
+                {
+                        aux[x][y]=matriz[x][y];
+                }
+        }
+        return aux;
 }
 
 string Sala::get_nombre_sala(){

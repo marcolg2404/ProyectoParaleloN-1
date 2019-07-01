@@ -24,9 +24,9 @@ void set_miercoles(int*);
 void set_jueves(int*);
 void set_viernes(int*);
 void set_sabado(int*);
+void cambiar_disponibilidad(int,int);
 int get_id();
 int **get_horario();
-void cambiar_disponibilidad(int,int);
 
 private://atributos de la clase
 int id_profe;
@@ -38,12 +38,11 @@ class Cursos {
 
 public: //metodo
 Cursos();// constructor
-void set_Cursos(string, int, int);
 int get_horas();
 int getID_profe();
 string getcodigo_curso();
-bool cursos_inf(string id);
 void cursos_mostrar();
+void set_Cursos(string, int, int);
 virtual ~Cursos();
 
 private: //atributos
@@ -54,15 +53,16 @@ int bloque;
 
 
 /* CLASE 3: SALA */
-class Sala{
+class Sala {
 
 public:
 Sala(string);
 void iniciar_matriz();
 void mostrar_sala();
+void cambiar_seccion(int, int, string);
 string **get_sala();
 string get_nombre_sala();
-void cambiar_seccion(int, int, string);
+
 virtual ~Sala();
 
 private:

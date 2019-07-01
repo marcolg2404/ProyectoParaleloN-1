@@ -36,6 +36,113 @@ void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo){
         worksheet_write_number(hoja, 6, 0, 6, formato);
         worksheet_write_number(hoja, 7, 0, 7, formato);
 }
+
+void Guardar_archivo(vector<Sala> &salas,vector<Sala> &labs,lxw_workbook *archivo ){
+        salas.insert(salas.end(), labs.begin(), labs.end());
+        labs.clear();
+
+        for(int b=0; b<salas.size(); b++) {
+                string **salax = salas[b].get_sala();
+                const char* char_sala = (salas[b].get_nombre_sala()).c_str();
+                lxw_worksheet *hoja = workbook_add_worksheet (archivo, char_sala); //(wb_salas,char_sala); //Agregar hoja con titulo de la sala
+                crear_formato(hoja,archivo);
+
+                for(int fila=0; fila<7; fila++) {
+
+                        for(int columna=0; columna<6; columna++) {
+                                const char *dato =  salax[fila][columna].c_str();
+                                worksheet_write_string (hoja, fila+1, columna+1,dato, NULL);
+                        }
+                }
+                delete [] salax;
+        }
+        workbook_close(archivo);
+}
+
+void Generar_Horario(vector<Cursos> &cursos, vector<Sala> &salas,vector<Sala> &labs,vector<Profesor> &profes){
+        int sala_recorrida=0;
+        int lab_recorrido=0;
+        int recorriendo_hoja=0;
+        int profesores_completados=0;
+        string curso_asignado;
+        while(profesores_completados<profes.size()) {
+                string **salax = salas[sala_recorrida].get_sala();
+                string **labsx = labs[lab_recorrido].get_sala();
+                for(int profe_recorrido=0; profe_recorrido<profes.size(); profe_recorrido++) {
+
+                        vector<Cursos> Cursos_encontrados = encuentra_cp(profes[profe_recorrido],cursos);
+
+                        for(int curso_recorrido=0; curso_recorrido<Cursos_encontrados.size(); curso_recorrido++) {
+
+                                int horas_necesarias = Cursos_encontrados[curso_recorrido].get_horas();   //cantidad de horas que se deben realizar por curso
+                                int **Horario_profesor = profes[profe_recorrido].get_horario();   //horario del profesor
+                                int vuelta_completa=0;
+                                if(Es_inf(Cursos_encontrados[curso_recorrido].getcodigo_curso())) {
+                                        for(int columna=0; columna<6; columna++) //columna
+                                        {
+                                                for(int fila=0; fila<7; fila++) { //fila
+
+                                                        if ((Horario_profesor[fila][columna]==1) && (salax[fila][columna]==" ") && (horas_necesarias>0)) {
+                                                                curso_asignado=(Cursos_encontrados[curso_recorrido].getcodigo_curso() + "-" + (to_string(Cursos_encontrados[curso_recorrido].getID_profe())));
+                                                                labsx[fila][columna]=curso_asignado;
+                                                                horas_necesarias=horas_necesarias-2;
+                                                                Horario_profesor[fila][columna]==0;
+                                                                profes[profe_recorrido].cambiar_disponibilidad(fila,columna);
+                                                                labs[lab_recorrido].cambiar_seccion(fila,columna,curso_asignado);
+
+                                                        }
+
+                                                        if(columna==5 && fila ==6) {
+
+                                                                vuelta_completa++;
+
+                                                        }
+                                                        if(vuelta_completa==1 && horas_necesarias>0) { //Si ya no hay espacios disponibles luego de haber recorrido la matriz completa, se procede a la siguiente sala
+
+                                                                lab_recorrido++;
+                                                                delete [] labsx;
+                                                                string **labsx = labs[lab_recorrido].get_sala();
+                                                        }
+                                                }
+
+                                        }
+
+                                }
+                                else{
+                                        for(int columna=0; columna<6; columna++) //columna
+                                        {
+                                                for(int fila=0; fila<7; fila++) { //fila
+
+                                                        if ((Horario_profesor[fila][columna]==1) && (salax[fila][columna]==" ") && (horas_necesarias>0)) {
+                                                                curso_asignado=(Cursos_encontrados[curso_recorrido].getcodigo_curso() + "-" + (to_string(Cursos_encontrados[curso_recorrido].getID_profe())));
+                                                                salax[fila][columna]=curso_asignado;
+                                                                horas_necesarias=horas_necesarias-2;
+                                                                Horario_profesor[fila][columna]==0;
+                                                                profes[profe_recorrido].cambiar_disponibilidad(fila,columna);
+                                                                salas[sala_recorrida].cambiar_seccion(fila,columna,curso_asignado);
+                                                        }
+
+                                                        if(columna==5 && fila ==6) {
+
+                                                                vuelta_completa++;
+
+                                                        }
+                                                        if(vuelta_completa==1 && horas_necesarias>0) { //Si ya no hay espacios disponibles luego de haber recorrido la matriz completa, se procede a la siguiente sala
+
+                                                                sala_recorrida++;
+                                                                delete [] salax;
+                                                                string **salax = salas[sala_recorrida].get_sala();
+                                                        }
+                                                }
+
+                                        }
+
+                                }
+                                profesores_completados++; //Cont de profesores completados
+                        }
+                }
+        }
+}
 // 2. FUNCION PARA HORARIO
 vector<Profesor> asignacion_profesores(string Archivo){
         int id_p,aux=0;
@@ -110,7 +217,25 @@ vector<Profesor> asignacion_profesores(string Archivo){
         return v;
 }
 
+bool Es_inf(string id){
+        bool Es_inf = false;
+        size_t encontrar_INF = id.find("INF");
+        if (encontrar_INF!=string::npos)
+        {
+                Es_inf = true;
+        }
+        return Es_inf;
+}
 
+bool Es_lab (string id){
+        bool Es_lab = false;
+        size_t encontrar_INF = id.find("LAB");
+        if (encontrar_INF!=string::npos)
+        {
+                Es_lab = true;
+        }
+        return Es_lab;
+}
 void asignacion_sabado(vector<Profesor> &v,string Archivo){
         int aux=0;
         vector<string> VectorAux,sabado;//vector para la clase profesor
@@ -166,13 +291,12 @@ vector<Cursos> rescatando_cursos(string Archivo){
         return v;
 }
 
-vector<Sala> guardar_salas(string archivo){
+void guardar_salas(string archivo,vector<Sala> &vector_salas,vector<Sala> &vector_labs){
         int aux=0;
         workbook wb_salas;
         wb_salas.load(archivo);
         auto ws = wb_salas.active_sheet();
         string sala;
-        vector<Sala> vector_salas;
         vector<string>vectorCursos_filas;
         for (auto fila : ws.rows(false)) //row=fila
         {
@@ -186,15 +310,18 @@ vector<Sala> guardar_salas(string archivo){
         }
 
         for(int i=0; i<vectorCursos_filas.size(); i=i+2)
-        {
+        {       if(Es_lab(vectorCursos_filas[i])==true) {
+                        Sala salax (vectorCursos_filas[i]+"-"+vectorCursos_filas[i+1]);
+                        salax.iniciar_matriz();
+                        vector_labs.push_back(salax);
+                }
+                else{
+                        Sala salax(vectorCursos_filas[i]+"-"+vectorCursos_filas[i+1]);
+                        salax.iniciar_matriz();
+                        vector_salas.push_back(salax);
+                }}
 
-                Sala salax(vectorCursos_filas[i]+"-"+vectorCursos_filas[i+1]);
-                salax.iniciar_matriz();
-                vector_salas.push_back(salax);
-                sala.clear();
-        }
         vectorCursos_filas.clear();
-        return vector_salas;
 }
 
 //Función para obtener el argumento del archivo salas.xlsx
@@ -258,17 +385,17 @@ char* obtener_docentes(char** matriz, int largo) {
 }
 
 vector<Sala> Matrices_salas(vector<string>salas){
-  vector<Sala> v;
-  string aula;
-  for(int i=0; i<salas.size(); i++)
-  {
-          aula = salas[i];
-          Sala aux(aula);
-          aux.iniciar_matriz();
-          v.push_back(aux);
-          aula.clear();
-  }
-  return v;
+        vector<Sala> v;
+        string aula;
+        for(int i=0; i<salas.size(); i++)
+        {
+                aula = salas[i];
+                Sala aux(aula);
+                aux.iniciar_matriz();
+                v.push_back(aux);
+                aula.clear();
+        }
+        return v;
 }
 
 //prototipos de funcion para escribir//
@@ -284,18 +411,18 @@ int *StringtoBool(vector<string> vec){
 }
 
 vector<Cursos> encuentra_cp(Profesor pro, vector<Cursos> vec){ // encontrar un profesor particular
-  int id = pro.get_id();
-  int l=0;
-  int r= vec.size();
-  vector<Cursos> aux;
-  while (l <= r) {
-        int m = l + (r - l) / 2;
-        if (vec[m].getID_profe() == id)
-            aux.push_back(vec[m]);
-        if (vec[m].getID_profe() < id)
-            l = m + 1;
-        else
-        r = m - 1;
-      }
-  return aux;
+        int id = pro.get_id();
+        int l=0;
+        int r= vec.size();
+        vector<Cursos> aux;
+        while (l <= r) {
+                int m = l + (r - l) / 2;
+                if (vec[m].getID_profe() == id)
+                        aux.push_back(vec[m]);
+                if (vec[m].getID_profe() < id)
+                        l = m + 1;
+                else
+                        r = m - 1;
+        }
+        return aux;
 }
