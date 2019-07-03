@@ -43,6 +43,7 @@ int getID_profe();
 string getcodigo_curso();
 void cursos_mostrar();
 void set_Cursos(string, int, int);
+void Resta_hora();
 virtual ~Cursos();
 
 private: //atributos

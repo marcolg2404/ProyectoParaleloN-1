@@ -105,7 +105,7 @@ void Generar_Horario(vector<Cursos> &cursos, vector<Sala> &salas,vector<Sala> &l
 
                 int horas_necesarias = Cursos_encontrados[curso_recorrido].get_horas();                   //cantidad de horas que se deben realizar por curso
                 int **Horario_profesor = profe.get_horario();                   //horario del profesor
-                int vuelta_completa=0;
+                bool vuelta_completa=false;
                 if(Es_inf(Cursos_encontrados[curso_recorrido].getcodigo_curso())) {
                         for(int columna=0; columna<6; columna++)                 //columna
                         {
@@ -115,6 +115,7 @@ void Generar_Horario(vector<Cursos> &cursos, vector<Sala> &salas,vector<Sala> &l
                                                 curso_asignado=(Cursos_encontrados[curso_recorrido].getcodigo_curso() + "-" + (to_string(Cursos_encontrados[curso_recorrido].getID_profe())));
                                                 labsx[fila][columna]=curso_asignado;
                                                 horas_necesarias=horas_necesarias-2;
+                                                Cursos_encontrados[curso_recorrido].Resta_hora();
                                                 Horario_profesor[fila][columna]==0;
                                                 profe.cambiar_disponibilidad(fila,columna);
                                                 labs[lab_recorrido].cambiar_seccion(fila,columna,curso_asignado);
@@ -142,10 +143,11 @@ void Generar_Horario(vector<Cursos> &cursos, vector<Sala> &salas,vector<Sala> &l
                         {
                                 for(int fila=0; fila<7; fila++) {                 //fila
 
-                                        if ((Horario_profesor[fila][columna]==1) && (salax[fila][columna]==" ") && (horas_necesarias>0)) {
+                                        if ((Horario_profesor[fila][columna]==1) && (salax[fila][columna]==" ") && (horas_necesarias>1)) {
                                                 curso_asignado=(Cursos_encontrados[curso_recorrido].getcodigo_curso() + "-" + (to_string(Cursos_encontrados[curso_recorrido].getID_profe())));
                                                 salax[fila][columna]=curso_asignado;
                                                 horas_necesarias=horas_necesarias-2;
+                                                Cursos_encontrados[curso_recorrido].Resta_hora();
                                                 Horario_profesor[fila][columna]==0;
                                                 profe.cambiar_disponibilidad(fila,columna);
                                                 salas[sala_recorrida].cambiar_seccion(fila,columna,curso_asignado);
@@ -156,7 +158,7 @@ void Generar_Horario(vector<Cursos> &cursos, vector<Sala> &salas,vector<Sala> &l
                                                 vuelta_completa=true;
 
                                         }
-                                        if(vuelta_completa==true && horas_necesarias>0) {                 //Si ya no hay espacios disponibles luego de haber recorrido la matriz completa, se procede a la siguiente sala
+                                        if(vuelta_completa==true && horas_necesarias>1) {                 //Si ya no hay espacios disponibles luego de haber recorrido la matriz completa, se procede a la siguiente sala
 
                                                 sala_recorrida++;
                                                 delete [] salax;
@@ -313,6 +315,9 @@ vector<Cursos> rescatando_cursos(string Archivo){
                 id_p = stoi(VectorAux[i+2]);
                 cod = VectorAux[i];
                 n_bloques= stoi(VectorAux[i+5]);
+                if(n_bloques%2!= 0){
+                  n_bloques=n_bloques +1;
+                }
                 temp.set_Cursos(cod,id_p, n_bloques);
                 v.push_back(temp);
 

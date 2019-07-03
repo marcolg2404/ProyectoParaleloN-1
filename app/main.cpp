@@ -53,13 +53,12 @@ int main(int argc, char **argv)
 
 
                         if (Procesador != 0) {
-                          
+
                                 for(int k=0; k<profes.size(); k=k+Procesos) {
 
                                         MPI_Recv(&Procesos_enviar,1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                                         Generar_Horario(cursos,salas,labs,profes[Procesos_enviar],sala_recorrida,lab_recorrido);
                                         profesores_completados++;
-
                                 }
                         }
 
@@ -74,13 +73,12 @@ int main(int argc, char **argv)
                                                 Generar_Horario(cursos,salas,labs,profes[k],sala_recorrida,lab_recorrido);
                                                 profesores_completados++;
 
+
                                         }
                                 }
-                                if(profesores_completados==(profes.size()-1)) {
-
-                                        Guardar_archivo(salas,labs,wb_salas);
-                                }
+                                       Guardar_archivo(salas,labs,wb_salas);
                         }
+
                         MPI_Finalize();
 
                 }

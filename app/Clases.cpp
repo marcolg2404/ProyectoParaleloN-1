@@ -147,6 +147,11 @@ int Cursos::getID_profe(){
         return id_docente;
 }
 
+void Cursos::Resta_hora(){
+  bloque=bloque-2;
+
+}
+
 string Cursos::getcodigo_curso(){
         return codigo_cursos;
 }
