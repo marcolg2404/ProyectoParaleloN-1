@@ -9,6 +9,8 @@
 #include <vector>
 #include <algorithm>
 
+#include "mpi.h"
+
 /*Cabezeras para manejos de archivos .xlsx*/
 #include <xlnt/xlnt.hpp>//Para leer archivos
 #include "xlsxwriter.h"//Para escribir archivo final
@@ -30,6 +32,14 @@ int main(int argc, char **argv)
                         vector<Profesor> profes;
                         vector<Cursos> cursos;
                         vector<Sala> salas,labs;
+                        int Procesos,Procesador,Divdatos_profes,Procesos_enviar;
+                        int profesores_completados=0;
+                        int sala_recorrida=0;
+                        int lab_recorrido=0;
+
+                        MPI_Init(NULL, NULL);
+                        MPI_Comm_size(MPI_COMM_WORLD, &Procesos);
+                        MPI_Comm_rank(MPI_COMM_WORLD, &Procesador);
 
                         /* Asignación de los vectores con la información de los 3 archivos*/
                         profes = asignacion_profesores(Archivo_Docentes);
@@ -41,11 +51,37 @@ int main(int argc, char **argv)
                         sort(profes.begin(),profes.end());
                         sort(cursos.begin(),cursos.end());
 
-                        /*Se generan los horarrios correspondientes a cada sala*/
-                        Generar_Horario(cursos,salas,labs,profes);
 
-                        /*Llenado de archivo con las hojas de salas correspondientes*/
-                        Guardar_archivo(salas,labs,wb_salas);
+                        if (Procesador != 0) {
+                          
+                                for(int k=0; k<profes.size(); k=k+Procesos) {
+
+                                        MPI_Recv(&Procesos_enviar,1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                                        Generar_Horario(cursos,salas,labs,profes[Procesos_enviar],sala_recorrida,lab_recorrido);
+                                        profesores_completados++;
+
+                                }
+                        }
+
+
+                        else{
+                                for(int k=0; k<profes.size(); k=k+Procesos) {
+
+                                        for (int i = 1; i < Procesos; i++) {
+
+                                                Procesos_enviar=k+i;
+                                                MPI_Send(&Procesos_enviar,1,MPI_INT,i,0,MPI_COMM_WORLD);
+                                                Generar_Horario(cursos,salas,labs,profes[k],sala_recorrida,lab_recorrido);
+                                                profesores_completados++;
+
+                                        }
+                                }
+                                if(profesores_completados==(profes.size()-1)) {
+
+                                        Guardar_archivo(salas,labs,wb_salas);
+                                }
+                        }
+                        MPI_Finalize();
 
                 }
                 else{

@@ -15,12 +15,13 @@ char* obtener_salas(char**, int );
 char* obtener_cursos(char**, int );
 char* obtener_docentes(char**, int );
 
-void Generar_Horario(vector<Cursos> &, vector<Sala> &,vector<Sala> &,vector<Profesor> &);
+void Generar_Horario(vector<Cursos> &, vector<Sala> &,vector<Sala> &,Profesor &,int &,int &);
 vector<Sala> Matrices_salas(vector<string>);
 void guardar_salas(string,vector<Sala> &,vector<Sala> &);
 vector<Cursos> encuentra_cp(Profesor, vector<Cursos> );
 bool Es_inf(string);
 bool Es_lab(string);
+
 
 void crear_formato(lxw_worksheet *, lxw_workbook *);
 //void Generar_archivo(vector<Sala>,lxw_workbook *);
