@@ -1,16 +1,23 @@
 -Para compilar:
-Secuencial: g++ main.cpp -o tarea -std=c++14 -lxlsxwriter -Ixlnt/include -lxlnt
+
+Secuencial: g++ main.cpp -o tarea -lxlsxwriter -lxlnt
+
 Paralelo: mpic++ main.cpp -o tarea -lxlsxwriter -lxlnt
 
+Paralelo con OpenMP: mpic++ main.cpp -o tarea -lxlsxwriter -lxlnt -fopenmp
+
+
 -Para ejecutar:
+
 Secuencial: ./tarea -s ./Archivos/Salas.xlsx -c ./Archivos/Cursos.xlsx -d ./Archivos/Docentes.xlsx
+
 Paralelo: mpirun ./tarea -s ./Archivos/Salas.xlsx -c ./Archivos/Cursos.xlsx -d ./Archivos/Docentes.xlsx
+
+Paralelo con OpenMP: mpirun --hostfile ./Archivos/hostfile.txt -np N ./tarea -s ./Archivos/Salas.xlsx -c ./Archivos/Cursos.xlsx -d ./Archivos/Docentes.xlsx
+
 
 
 Nota:
 - Para compilar una clase:
 Compilar de la forma: g++ -c class_cursos.cpp -o tarea -std=c++14 -lxlsxwriter -Ixlnt/include -lxlnt
 
-Nota Seba:
--compile con g++ main.cpp -o tarea -lxlsxwriter -lxlnt
-funciono sin problemas
