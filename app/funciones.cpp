@@ -17,15 +17,15 @@ using namespace xlnt;
 // 1. FUNCION PARA LA CREACION DEL FORMATO DEL ARCHIVO
 void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo){
         lxw_format *formato = workbook_add_format(archivo);
-	/*Tipos de estilos*/
+        /*Tipos de estilos*/
         format_set_bold(formato);
         format_set_align(formato, LXW_ALIGN_CENTER);
         format_set_bottom(formato,LXW_BORDER_THIN);
         format_set_top(formato,LXW_BORDER_THIN);
         format_set_left(formato,LXW_BORDER_THIN);
         format_set_right(formato,LXW_BORDER_THIN);
-	/* Hoja - Fila - Columna - Dato - Formato*/
-	/* Datos en forma horizontal*/
+        /* Hoja - Fila - Columna - Dato - Formato*/
+        /* Datos en forma horizontal*/
         worksheet_write_string(hoja, 0, 0, "Periodo", formato);
         worksheet_write_string(hoja, 0, 1, "Lunes", formato);
         worksheet_write_string(hoja, 0, 2, "Martes", formato);
@@ -33,7 +33,7 @@ void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo){
         worksheet_write_string(hoja, 0, 4, "Jueves", formato);
         worksheet_write_string(hoja, 0, 5, "Viernes", formato);
         worksheet_write_string(hoja, 0, 6, "Sábado", formato);
-	/*Horario según bloques, vertical */
+        /*Horario según bloques, vertical */
         worksheet_write_number(hoja, 1, 0, 1, formato);
         worksheet_write_number(hoja, 2, 0, 2, formato);
         worksheet_write_number(hoja, 3, 0, 3, formato);
@@ -43,7 +43,7 @@ void crear_formato(lxw_worksheet *hoja, lxw_workbook *archivo){
         worksheet_write_number(hoja, 7, 0, 7, formato);
 }
 /*2. Función de tipo vector, que toma la información de Docentes y va llenando la matriz
-con los cursos según disponibilidad y cantidad de bloques de estos, se llenan todos los bloques de ser posible */
+   con los cursos según disponibilidad y cantidad de bloques de estos, se llenan todos los bloques de ser posible */
 vector<Profesor> asignacion_profesores(string Archivo){
         int id_p,aux=0;
         vector<Profesor> v;
@@ -119,7 +119,7 @@ vector<Profesor> asignacion_profesores(string Archivo){
         return v;
 }
 /*3. Función de tipo vector que obtiene la información del archivo cursos
-sean estos el código del curso, ID y cantidad de bloques en horas pedagógicas */
+   sean estos el código del curso, ID y cantidad de bloques en horas pedagógicas */
 vector<Cursos> rescatando_cursos(string Archivo){
         int id_p,n_bloques,aux=0;
         vector<Cursos> v;
@@ -143,8 +143,8 @@ vector<Cursos> rescatando_cursos(string Archivo){
                 id_p = stoi(VectorAux[i+2]);
                 cod = VectorAux[i];
                 n_bloques= stoi(VectorAux[i+5]);
-                if(n_bloques%2!= 0){
-                  n_bloques=n_bloques +1;
+                if(n_bloques%2!= 0) {
+                        n_bloques=n_bloques +1;
                 }
                 temp.set_Cursos(cod,id_p, n_bloques);
                 v.push_back(temp);
@@ -184,8 +184,8 @@ vector<Sala> Matrices_salas(vector<string>salas){
         return v;
 }
 /*6.Función en la cual genera el horario correspondiente, según la disponibilidad del profesor y cantidad de bloques a considerar
-en donde según sea la disponibilidad del profe, cambia de disponible a no disponible y además filtra los Labs, una vez
-llena las celdas, se verifica si queda algún espacio disponible, de no ser así, se dirige a la siguiente hoja*/
+   en donde según sea la disponibilidad del profe, cambia de disponible a no disponible y además filtra los Labs, una vez
+   llena las celdas, se verifica si queda algún espacio disponible, de no ser así, se dirige a la siguiente hoja*/
 void Generar_Horario(vector<Cursos> &cursos, vector<Sala> &salas,vector<Sala> &labs, Profesor &profe,int &sala_recorrida, int &lab_recorrido){
 
         string curso_asignado;
@@ -260,10 +260,10 @@ void Generar_Horario(vector<Cursos> &cursos, vector<Sala> &salas,vector<Sala> &l
                         }
 
                 }
-              }                /*Cont de profesores completados*/
+        }                      /*Cont de profesores completados*/
 }
 /*7. Función en la cual el día sabado se asigna de diferente manera, ya que no debe llenar todas las celdas como
-se llenan los demás días ya que son permitidos sólo cuatro bloques*/
+   se llenan los demás días ya que son permitidos sólo cuatro bloques*/
 void asignacion_sabado(vector<Profesor> &v,string Archivo){
         int aux=0;
         vector<string> VectorAux,sabado;/*Vector para la clase profesor*/
@@ -356,7 +356,7 @@ char* obtener_salas(char** matriz, int largo) {
         return archivo;
 }
 /*12. Función de tipo boleana, que filtra los cursos de acuerdo a las iniciales del código
-para este caso, el filtro de tipo INF es sólo para que estos cursos se registren en los laboratorios */
+   para este caso, el filtro de tipo INF es sólo para que estos cursos se registren en los laboratorios */
 bool Es_inf(string id){
         bool Es_inf = false;
         size_t encontrar_INF = id.find("INF");
@@ -377,11 +377,11 @@ bool Es_lab (string id){
         return Es_lab;
 }
 /*14. Función en donde al momento de escribir los datos en la matriz
-y pasar a la siguiente sala, guarda la información que se escribió */
+   y pasar a la siguiente sala, guarda la información que se escribió */
 void guardar_salas(string archivo,vector<Sala> &vector_salas,vector<Sala> &vector_labs){
         int aux=0;
         workbook wb_salas;
-	      /*Carga el archivo*/
+        /*Carga el archivo*/
         wb_salas.load(archivo);
         auto ws = wb_salas.active_sheet();
         string sala;
@@ -412,7 +412,7 @@ void guardar_salas(string archivo,vector<Sala> &vector_salas,vector<Sala> &vecto
         vectorCursos_filas.clear();
 }
 /*15. Función de tipo void, que al momento de escrito los datos en todas las salas, guarda el archivo
-para que este después de forma anexa se pueda abrir */
+   para que este después de forma anexa se pueda abrir */
 void Guardar_archivo(vector<Sala> &salas,vector<Sala> &labs,lxw_workbook *archivo ){
         salas.insert(salas.end(), labs.begin(), labs.end());
         labs.clear();
@@ -420,15 +420,17 @@ void Guardar_archivo(vector<Sala> &salas,vector<Sala> &labs,lxw_workbook *archiv
         for(int b=0; b<salas.size(); b++) {
                 string **salax = salas[b].get_sala();
                 const char* char_sala = (salas[b].get_nombre_sala()).c_str();
-                 /*(wb_salas,char_sala); Agregar hoja con título de la sala*/
+                /*(wb_salas,char_sala); Agregar hoja con título de la sala*/
                 lxw_worksheet *hoja = workbook_add_worksheet (archivo, char_sala);
+                lxw_format *formato_escritura = workbook_add_format(archivo);
+                format_set_align(formato_escritura, LXW_ALIGN_CENTER);
                 crear_formato(hoja,archivo);
 
                 for(int fila=0; fila<7; fila++) {
 
                         for(int columna=0; columna<6; columna++) {
                                 const char *dato =  salax[fila][columna].c_str();
-                                worksheet_write_string (hoja, fila+1, columna+1,dato, NULL);
+                                worksheet_write_string (hoja, fila+1, columna+1,dato, formato_escritura);
                         }
                 }
                 delete [] salax;

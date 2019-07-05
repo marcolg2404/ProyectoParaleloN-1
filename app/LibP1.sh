@@ -15,6 +15,8 @@ sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt update
 sudo apt-get upgrade
 sudo apt-get install g++
+sudo apt install libomp-dev
+sudo apt-get install libopenmpi-dev
 sudo apt-get install wget
 wget https://github.com/tfussell/xlnt/archive/master.zip
 cd ~
@@ -32,5 +34,5 @@ git clone https://github.com/jmcnamara/libxlsxwriter.git
 cd libxlsxwriter
 make 
 sudo make install
-
+sudo ldconfig
 #y eso es todo :D
